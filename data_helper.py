@@ -15,13 +15,12 @@ from tools.dataio import load_txt_data
 
 
 class DataLoader:
-    def __init__(self, all_path, copied_path, seq_len=10, class_num=10, train=False,
+    def __init__(self, all_path, copied_path, class_num=10, train=False,
                  vocab_path='./model/vocab_config.pkl'):
         self.all_path = all_path
         self.copied_path = copied_path
         self.vocab_path = vocab_path
 
-        self.seq_len = seq_len
         self.class_num = class_num
 
         self.train = train
@@ -36,15 +35,11 @@ class DataLoader:
 
         copied_data = load_txt_data(self.copied_path, encoding='gbk')
 
-        for item in copied_data:
-            t = item.split('\t')
-            print(t[1])
-
-        copied_stamp_book = [x.split('\t')[0] + x.split('\t')[1] for x in copied_data]
+        copied_stamp_book = [(x.split('\t')[0] + x.split('\t')[1]) for x in copied_data]
 
         x_train = []
         y_train = []  # [0, 1] copied, [1, 0] not copied
-
+        count = 0
         for item in raw_data:
             stack = item.split('\t')
             topic = stack[0]  # 标题
@@ -53,13 +48,13 @@ class DataLoader:
             length = [stack[4] if stack[4] else 'unk'][0]  # 时长
             address = stack[1]
             label = [0 for x in range(self.class_num)]
-            if topic + address in copied_stamp_book:
+            if (topic + address) in copied_stamp_book:
+                count += 1
                 label[1] = 1
             else:
                 label[0] = 1
             y_train.append(label)
             x_train.append('{}, 视频来源网站: {}, 终端: {} 时长: {}'.format(topic, source, terminal, length))
-
         return x_train, y_train
 
     def load_data(self):
@@ -108,6 +103,6 @@ class DataLoader:
 
 
 if __name__ == '__main__':
-    _d = DataLoader('./data/all.csv', './data/copied.csv')
+    _d = DataLoader('./data/all.csv', './data/copied.csv', train=True)
     _, c, v, = _d.x_train, _d.y_train, _d.vocabulary
     print(_)
