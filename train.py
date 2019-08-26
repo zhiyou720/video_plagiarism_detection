@@ -7,6 +7,7 @@
 @Date     :2019/8/26
 @Desc     : 
 """
+import re
 import keras
 from model import TextAttBiRNN
 from data_helper import DataLoader
@@ -30,7 +31,9 @@ def predict(x_open_test, y_open_test, _vocab):
         true_label = list(y_open_test[i]).index(1)
         predict_label = list(result[i]).index(max(result[i]))
         sent = ''.join([i2w_dict[w] for w in x_open_test[i]])
-        print("{}\n真实标签: {}, 预测标签: {}".format(sent, label_dict[true_label], label_dict[predict_label]))
+        print("{}\n真实标签: {}, 预测标签: {}".format(re.sub(' ', '', sent),
+                                              label_dict[true_label],
+                                              label_dict[predict_label]))
         if true_label == predict_label:
             score += 1
 
@@ -43,6 +46,7 @@ if __name__ == '__main__':
     batch_size = 32
     embedding_dims = 200
     epochs = 12
+    shuffle = True
 
     class_num = 2
     all_data_path = './data/all.csv'
@@ -68,7 +72,7 @@ if __name__ == '__main__':
     ox = x_train[-100:]
     oy = y[-100:]
 
-    x_train, x_test, y_train, y_test = train_test_split(cx, cy, test_size=0.01, shuffle=False, random_state=123)
+    x_train, x_test, y_train, y_test = train_test_split(cx, cy, test_size=0.01, shuffle=shuffle, random_state=123)
 
     print(len(x_train), 'train sequences')
     print(len(x_test), 'test sequences')
@@ -82,7 +86,7 @@ if __name__ == '__main__':
         model.fit(x_train, y_train,
                   batch_size=batch_size,
                   epochs=epochs,
-                  shuffle=False,
+                  shuffle=shuffle,
                   validation_data=(x_test, y_test))
 
         model.save('./model/res.model')
