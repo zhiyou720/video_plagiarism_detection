@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1b9f97e8-2d3b-44aa-998d-7f94af254538" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/model.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_helper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -18,7 +15,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/data_helper.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="185">
+            <state relative-caret-position="-214">
               <caret line="17" column="22" selection-start-line="17" selection-start-column="22" selection-end-line="17" selection-end-column="22" />
               <folding>
                 <element signature="e#160#173#0" expanded="true" />
@@ -27,22 +24,22 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/train.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="223">
-              <caret line="102" column="17" lean-forward="true" selection-start-line="102" selection-start-column="17" selection-end-line="102" selection-end-column="17" />
+            <state relative-caret-position="375">
+              <caret line="86" lean-forward="true" selection-start-line="86" selection-end-line="86" />
               <folding>
-                <element signature="e#381#1923#0" />
+                <element signature="e#154#166#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/model.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="413">
+            <state relative-caret-position="71">
               <caret line="130" column="51" selection-start-line="130" selection-start-column="51" selection-end-line="130" selection-end-column="51" />
               <folding>
                 <element signature="e#154#166#0" expanded="true" />
@@ -68,7 +65,7 @@
         <entry file="file://$PROJECT_DIR$/data/copied.csv">
           <provider selected="true" editor-type-id="csv-text-editor">
             <state relative-caret-position="112">
-              <caret line="960" column="16" lean-forward="true" selection-start-line="960" selection-start-column="16" selection-end-line="960" selection-end-column="16" />
+              <caret line="960" column="16" selection-start-line="960" selection-start-column="16" selection-end-line="960" selection-end-column="16" />
             </state>
           </provider>
           <provider editor-type-id="csv-table-editor">
@@ -95,8 +92,8 @@
         <option value="$PROJECT_DIR$/data/all.csv" />
         <option value="$PROJECT_DIR$/data/copied.csv" />
         <option value="$PROJECT_DIR$/data_helper.py" />
-        <option value="$PROJECT_DIR$/train.py" />
         <option value="$PROJECT_DIR$/model.py" />
+        <option value="$PROJECT_DIR$/train.py" />
       </list>
     </option>
   </component>
@@ -118,6 +115,11 @@
             <path>
               <item name="video_plagiarism_detection" type="b2602c69:ProjectViewProjectNode" />
               <item name="video_plagiarism_detection" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="video_plagiarism_detection" type="b2602c69:ProjectViewProjectNode" />
+              <item name="video_plagiarism_detection" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -251,16 +253,27 @@
     <entry file="file://$PROJECT_DIR$/data/copied.csv">
       <provider selected="true" editor-type-id="csv-text-editor">
         <state relative-caret-position="112">
-          <caret line="960" column="16" lean-forward="true" selection-start-line="960" selection-start-column="16" selection-end-line="960" selection-end-column="16" />
+          <caret line="960" column="16" selection-start-line="960" selection-start-column="16" selection-end-line="960" selection-end-column="16" />
         </state>
       </provider>
       <provider editor-type-id="csv-table-editor">
         <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="71">
+          <caret line="130" column="51" selection-start-line="130" selection-start-column="51" selection-end-line="130" selection-end-column="51" />
+          <folding>
+            <element signature="e#154#166#0" expanded="true" />
+            <element signature="e#487#4083#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/data_helper.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="185">
+        <state relative-caret-position="-214">
           <caret line="17" column="22" selection-start-line="17" selection-start-column="22" selection-end-line="17" selection-end-column="22" />
           <folding>
             <element signature="e#160#173#0" expanded="true" />
@@ -270,21 +283,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/train.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="223">
-          <caret line="102" column="17" lean-forward="true" selection-start-line="102" selection-start-column="17" selection-end-line="102" selection-end-column="17" />
-          <folding>
-            <element signature="e#381#1923#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/model.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="413">
-          <caret line="130" column="51" selection-start-line="130" selection-start-column="51" selection-end-line="130" selection-end-column="51" />
+        <state relative-caret-position="375">
+          <caret line="86" lean-forward="true" selection-start-line="86" selection-end-line="86" />
           <folding>
             <element signature="e#154#166#0" expanded="true" />
-            <element signature="e#487#4083#0" />
           </folding>
         </state>
       </provider>

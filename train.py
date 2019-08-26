@@ -14,68 +14,31 @@ from keras.losses import categorical_crossentropy
 from sklearn.model_selection import train_test_split
 
 
-def predict(x_open_test, y_open_test):
+def predict(x_open_test, y_open_test, _vocab):
     _model = keras.models.load_model('./model/res.model')
+
+    i2w_dict = dict(zip(_vocab.values(), _vocab.keys()))
 
     score = _model.evaluate(x_open_test, y_open_test, batch_size=16)
     print(score)
     print('Test...')
-
+    label_dict = {0: 'origin', 1: 'copied'}
     result = _model.predict(x_open_test)
-
-    def bubble_sort(arr):
-        n = len(arr)
-        for _i in range(n):
-            for j in range(0, n - _i - 1):
-
-                if arr[j] < arr[j + 1]:
-                    arr[j], arr[j + 1] = arr[j + 1], arr[j]
-
-    res = []
-    for item in result:
-        item = list(item)
-        tmp = item[:]
-        bubble_sort(tmp)
-        __ = []
-        for i in range(len(tmp) - 5):
-            __.append(item.index(tmp[i]))
-        res.append(__)
-
-    y_true = []
-
-    for _y in y_open_test:
-        _ = list(_y).index(1)
-        y_true.append(_)
-
+    score = 0
     total = len(x_open_test)
-
-    for rng in range(5):
-        score = 0
-        for i in range(len(y_true)):
-            if y_true[i] in res[i][:rng + 1]:
-                score += 1
-            if rng == 4:
-                print('真实值: {}, 预测值: {}'.format(y_true[i], res[i][:5]))
-        print('预测概率前 {} 个数: {}'.format(rng + 1, score / total))
-    res_one = []
-    for item in result:
-        item = list(item)
-        res_one.append(item.index(max(item)))
-
-    for i in range(5, 21):
-        y_true_x = y_true[:-i]
-        _total = len(y_true_x)
-        rrd_score = 0
-        for j in range(len(y_true_x)):
-            if y_true[j] in res_one[j:j + i]:
-                rrd_score += 1
-        print('如果此次预测的数字出现在了未来{}个就算正确的概率: {}'.format(i, rrd_score / _total))
+    for i in range(len(result)):
+        true_label = list(y_open_test[i]).index(1)
+        predict_label = list(result[i]).index(max(result[i]))
+        sent = ''.join([i2w_dict[w] for w in x_open_test[i]])
+        print("{}\n真实标签: {}, 预测标签: {}".format(sent, label_dict[true_label], label_dict[predict_label]))
+        if true_label == predict_label:
+            score += 1
 
     return score / total
 
 
 if __name__ == '__main__':
-    train = True
+    train = False
     GPU = False
     batch_size = 32
     embedding_dims = 200
@@ -124,4 +87,4 @@ if __name__ == '__main__':
 
         model.save('./model/res.model')
     else:
-        s = predict(ox, oy)
+        s = predict(ox, oy, vocab)
