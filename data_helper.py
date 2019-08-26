@@ -15,8 +15,10 @@ from tools.dataio import load_txt_data
 
 
 class DataLoader:
-    def __init__(self, data_path, seq_len=10, class_num=10, train=False, vocab_path='./model/vocab_config.pkl'):
-        self.data_path = data_path
+    def __init__(self, all_path, copied_path, seq_len=10, class_num=10, train=False,
+                 vocab_path='./model/vocab_config.pkl'):
+        self.all_path = all_path
+        self.copied_path = copied_path
         self.vocab_path = vocab_path
 
         self.seq_len = seq_len
@@ -30,33 +32,34 @@ class DataLoader:
         Load raw data and give x_train and y_train
         :return:
         """
-        raw_data = load_txt_data(self.data_path)
-        print('Origin data: {}'.format(len(raw_data)))
+        raw_data = load_txt_data(self.all_path, encoding='gbk')
 
-        ptr = 0
+        copied_data = load_txt_data(self.copied_path, encoding='gbk')
+
+        for item in copied_data:
+            t = item.split('\t')
+            print(t[1])
+
+        copied_stamp_book = [x.split('\t')[0] + x.split('\t')[1] for x in copied_data]
+
         x_train = []
-        y_train = []
+        y_train = []  # [0, 1] copied, [1, 0] not copied
 
-        while ptr + self.seq_len < len(raw_data):
-            delta = 0
-            tmp_x = []
-            tmp_y = [0 for x in range(self.class_num)]
-            while len(tmp_x) < self.seq_len:
-                stack = raw_data[ptr + delta].split(',')
-                tmp_x.append(stack[0] + stack[1])
-                delta += 1
-
-            x_train.append(tmp_x)
-
-            if int(raw_data[ptr + self.seq_len].split(',')[1]) in [0, 8, 9]:
-                tmp_y[0] = 1
+        for item in raw_data:
+            stack = item.split('\t')
+            topic = stack[0]  # 标题
+            source = stack[2]  # 源网站的名字
+            terminal = stack[3]  # 终端
+            length = [stack[4] if stack[4] else 'unk'][0]  # 时长
+            address = stack[1]
+            label = [0 for x in range(self.class_num)]
+            if topic + address in copied_stamp_book:
+                label[1] = 1
             else:
-                # tmp_y[1] = 1
-                tmp_y[int(raw_data[ptr + self.seq_len].split(',')[1])] = 1  # 10 classification
+                label[0] = 1
+            y_train.append(label)
+            x_train.append('{}, 视频来源网站: {}, 终端: {} 时长: {}'.format(topic, source, terminal, length))
 
-            # tmp_y[int(raw_data[ptr + self.seq_len].split(',')[1])] = 1  # 10 classification
-            y_train.append(tmp_y)
-            ptr += 1
         return x_train, y_train
 
     def load_data(self):
@@ -105,6 +108,6 @@ class DataLoader:
 
 
 if __name__ == '__main__':
-    _d = DataLoader('./data/new_train_a+week.csv')
+    _d = DataLoader('./data/all.csv', './data/copied.csv')
     _, c, v, = _d.x_train, _d.y_train, _d.vocabulary
     print(_)

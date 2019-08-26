@@ -9,9 +9,10 @@
 """
 
 
-def load_txt_data(path):
+def load_txt_data(path, encoding='utf-8'):
     """
     This func is used to reading txt file
+    :param encoding:
     :param path: path where file stored
     :type path: str
     :return: string lines in file in a list
@@ -21,7 +22,7 @@ def load_txt_data(path):
         raise TypeError
     res = []
 
-    with open(path, 'r', encoding='utf-8') as f:
+    with open(path, 'r', encoding=encoding) as f:
         for line in f.readlines():
             res.append(line.strip())
 
